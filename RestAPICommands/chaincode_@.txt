@@ -1,0 +1,278 @@
+﻿
+https://36615276e07f4e5eb6a9915ec8432e62-vp0.us.blockchain.ibm.com:5001/registrar
+
+{"enrollId":"user_type1_0","enrollSecret":"0c771e5e16"}
+
+
+{
+  "OK": "Login successful for user 'user_type1_0'."
+}
+
+
+----------------------------------------------------------------------------------------
+
+https://f477c3d580774465aa4747bfa31378b6-vp0.us.blockchain.ibm.com:5001/chaincode
+f477c3d580774465aa4747bfa31378b6
+
+{
+  "jsonrpc": "2.0",
+  "method": "deploy",
+  "params": {
+    "type": 1,
+    "chaincodeID": {
+      "path": "https://github.com/kannukartikeya/learn-chaincode/finished"
+    },
+    "ctorMsg": {
+      "function": "init",
+      "args": [
+            "hello_world"
+    ] 
+    },
+    "secureContext": "user_type1_0"
+  },
+  "id": 1
+}
+
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "status": "OK",
+    "message": "f859f205cc16fb9516cc92d12726ca481b11da841e98909df2577382152dca650f06aa076087ce90e547e3e8da37954b1efa6b5ef660942b07c80dd8d2041171"
+  },
+  "id": 1
+}
+-------------------------------------------------------------------------------------------------
+
+https://fc2a9d4b9db4407fa47c0d1026c5a196-vp0.us.blockchain.ibm.com:5003/chaincode
+
+{
+  "jsonrpc": "2.0",
+  "method": "query",
+  "params": {
+    "type": 1,
+    "chaincodeID": {
+      "name": "f859f205cc16fb9516cc92d12726ca481b11da841e98909df2577382152dca650f06aa076087ce90e547e3e8da37954b1efa6b5ef660942b07c80dd8d2041171"
+    },
+    "ctorMsg": {
+      "function": "read",
+      "args": [
+            "hello_world"
+    ] 
+    },
+    "secureContext": "user_type1_0"
+  },
+  "id": 1
+}
+
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "status": "OK",
+    "message": "hello_world"
+  },
+  "id": 1
+}
+
+
+---------------------------------------------------------------------------------------------------
+
+
+
+
+…or create a new repository on the command line
+
+echo "# LoanSyndication-ChainCode" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/kannukartikeya/LoanSyndication-ChainCode.git
+git push -u origin master
+
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/kannukartikeya/LoanSyndication-ChainCode.git
+git push -u origin master
+
+…or import code from another repository
+
+You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
+
+
+    {
+      "enrollId": "user_type1_0",
+      "enrollSecret": "5b3681995d",
+      "affiliation": "group1",
+      "username": "user_type1_0",
+      "secret": "5b3681995d"
+    },
+	
+
+
+
+4503eab38d794562ad2c657b86e766be
+https://942c87cce9bc4de4b6a4dac336596902-vp0.us.blockchain.ibm.com:5001/registrar
+
+{"enrollId":"user_type1_0″,"enrollSecret":"5b3681995d"}
+
+
+{
+  "OK": "Login successful for user 'user_type1_0'."
+}
+
+
+----------------------------------------------------------------------------------------
+
+https://54058f9fa0ef4db0a14b5bfd351cb0ef-vp0.us.blockchain.ibm.com:5003/chaincode
+
+{
+  "jsonrpc": "2.0",
+  "method": "deploy",
+  "params": {
+    "type": 1,
+    "chaincodeID": {
+      "path": "https://github.com/kannukartikeya/LoanSyndication-ChainCode"
+    },
+    "ctorMsg": {
+      "function": "init",
+      "args": ["part1"] 
+    },
+    "secureContext": "user_type1_0",
+	"attributes": ["role", "Bank_Admin"]
+  },
+  "id": 1
+}
+
+
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "status": "OK",
+    "message": "c1dfc2e81ad5ee2d6e238ecd33b1b92e7a5c38faf2098c4c287569392fa983511b0802cf1027aca5c39d9017d79fe0bcd301c184f8a81214a9c0483017a92072"
+  },
+  "id": 1
+}
+
+------------------------------------------------------------------------------------------------
+
+Step 10: Invoke the Blockchain loam
+	{
+	  "jsonrpc": "2.0",
+	  "method": "invoke",
+	  "params": {
+		"type": 1,
+		"chaincodeID": {
+		  "name": "fb6978981d20cd72ee42ccd2addbddfdec4a50a59ce444a59776973a4e4111e96e0129faf590a1fcd837b90434f626ff63f8112b45802a7e17fb2f3948067775"
+		},
+		"ctorMsg": {
+		  "function": "CreateLoanApplication",
+		  "args": [  "la1","la1"] 
+		},
+		"secureContext": "user_type1_0",
+		"attributes": ["role", "Bank_Admin"]
+	  },
+	  "id": 1
+	}
+
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "status": "OK",
+    "message": "497c18fb-9e56-4a57-be89-50b0a3f3c4da"
+  },
+  "id": 1
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	{
+	  "jsonrpc": "2.0",
+	  "method": "query",
+	  "params": {
+		"type": 1,
+		"chaincodeID": {
+		  "name": "86a9aeb8a65eefd21c76e7e44cf28c1894ef8137d90e6c1fb572e629abb1038a64df87fa91f1cf0c714a7c9608942b2857cdd61d8958cc9b948634af54c8ce93"
+		},
+		"ctorMsg": {
+		  "function": "GetLoanApplication",
+		  "args": [  "la1"]
+		 },
+		"secureContext": "user_type1_0"
+	  },
+	  "id": 1
+	}
+	
+
+
+not working ----------------------------------------------------------------------------------------------------------------------------
+
+	{
+	  "jsonrpc": "2.0",
+	  "method": "invoke",
+	  "params": {
+		"type": 1,
+		"chaincodeID": {
+		  "name": "efb38d9e4309d3be00c032e06f3e9a6f3640251aed7a3aec992f138205f8dd195a10076af8a2d3f58a1dd072676d8d8551625dc0f4f58805cade9df52e56860b"
+		},
+		"ctorMsg": {
+		  "function": "CreateLoanApplication",
+		  "args": [  "la2",{"id":"la2"}] 
+		},
+		"secureContext": "user_type1_0"
+	  },
+	  "id": 1
+	}
+	
+	
+	
+	{
+  "jsonrpc": "2.0",
+  "result": {
+    "status": "OK",
+    "message": "{\"id\":\"ID1\",\"propertyId\":\"prop1\",\"landId\":\"land1\",\"permitId\":\"\",\"buyerId\":\"\",\"appraiserApplicationId\":\"\",\"salesContractId\":\"\",\"personalInfo\":{\"firstname\":\"\",\"lastname\":\"\",\"DOB\":\"\",\"email\":\"\",\"mobile\":\"\"},\"financialInfo\":{\"monthlySalary\":0,\"monthlyRent\":0,\"otherExpenditure\":0,\"monthlyLoanPayment\":0},\"status\":\"\",\"requestedAmount\":0,\"fairMarketValue\":0,\"approvedAmount\":0,\"reviewerId\":\"\",\"lastModifiedDate\":\"\"}"
+  },
+  "id": 1
+}
+
+
+
+
+
+	{
+	  "jsonrpc": "2.0",
+	  "method": "invoke",
+	  "params": {
+		"type": 1,
+		"chaincodeID": {
+		  "name": "86a9aeb8a65eefd21c76e7e44cf28c1894ef8137d90e6c1fb572e629abb1038a64df87fa91f1cf0c714a7c9608942b2857cdd61d8958cc9b948634af54c8ce93"
+		},
+		"ctorMsg": {
+		  "function": "CreateLoanApplication",
+		  "args": [  "la1",
+		  ] '{"id":"la1","PropertyId":"prop1","landId":"land1","permitId":"permit1","buyerId":"vojha24","personalInfo":{"firstname":"Varun","lastname":"Ojha","dob":"dob","email":"varun@gmail.com","mobile":"99999999"},"financialInfo":{"monthlySalary":10000,"otherExpenditure":0,"monthlyRent":41500,"monthlyLoanPayment":40000},"status":"Submitted","requestedAmount":400000,"fairMarketValue":580000,"approvedAmount":400000,"reviewedBy":"bond","lastModifiedDate":"21/09/2016 2:30pm"}'
+		},
+		"secureContext": "user_type1_0",
+		"attributes": ["role", "Bank_Admin"]
+	  },
+	  "id": 1
+	}
+
+	
+	
+	
+	{
+	  "jsonrpc": "2.0",
+	  "method": "invoke",
+	  "params": {
+		"type": 1,
+		"chaincodeID": {
+		  "name": "86a9aeb8a65eefd21c76e7e44cf28c1894ef8137d90e6c1fb572e629abb1038a64df87fa91f1cf0c714a7c9608942b2857cdd61d8958cc9b948634af54c8ce93"
+		},
+		"ctorMsg": {
+		  "function": "CreateLoanApplication",
+	"args": ["la1", "{\"ID\":\"la1\",\"propertyId\":\"Marigold\"}"]
+		},
+		"secureContext": "user_type1_0",
+		"attributes": ["role", "Bank_Admin"]
+	  },
+	  "id": 1
+	}
