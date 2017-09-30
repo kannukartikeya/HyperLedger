@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Participant Details</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+	<div class="container">
+	<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+<!--       <div class="page-header" id="banner">
+        <div class="row">
+          <div class="col-lg-8 col-md-7 col-sm-6"> -->
+            <h2>Participant Details</h2>
+            <form class="form-horizontal">
+<!-- 	            <div>
+	             	<fieldset> -->
+	            		<div class="form-group">
+		                    <label class="col-sm-2 control-label">Participant ID</label>
+		                    <div class="col-sm-5">
+		                    	<input type="text" class="form-control" disabled="disabled" 
+		                    		th:value="${participant.id}"/>
+		                    </div>
+	                	</div>
+	            		<div class="form-group">
+		                    <label class="col-sm-2 control-label">Participant Name</label>
+		                    <div class="col-sm-5">
+		                    	<input type="text" class="form-control" disabled="disabled" 
+		                    		th:value="${participant.name}"/>
+		                    </div>
+	                	</div>          
+	                	<div class="form-group">
+		                    <label class="col-sm-2 control-label">Participant Share(%)</label>
+		                    <div class="col-sm-5">
+		                    	<input type="text" class="form-control" disabled="disabled" 
+		                    		th:value="${participant.share}"/>
+		                    </div>
+	                	</div>          	
+<!-- 			      		
+	            	</fieldset>
+	            	</div> -->
+            	
+            <table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>AssetID</th>
+						<th>OutStanding ShareAmount</th>
+						<th>SettlementFees</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				    <tr th:each="asset : ${participant.AssetList}">
+				    	<td th:text="${asset.loanId}"></td>
+				    	<td th:text="${asset.shareAmount}"></td>
+				    	<td th:text="${asset.settlementFees}"></td>
+				    </tr>
+				</tbody>
+			</table>
+            	
+        		
+      
+            </form>
+          </div>
+<!--         </div>
+      </div>
+	</div>
+ -->
+</body>
+</html>

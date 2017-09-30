@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>SyndicatedLoans</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <div th:if="${not #lists.isEmpty(loans)}">
+        <h2>Syndicated Loans List</h2>
+        <table class="table table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>Property Id</th>
+                <th>Land Id</th>
+                <th>Permit ID</th>
+                <th>View</th>
+                <th>Edit</th>
+            </tr>
+            <tr th:each="loan : ${loans}">
+                <td th:text="${loan.id}"><a href="/loan/${loan.id}">Id</a></td>
+                <td th:text="${loan.propertyId}">Device Id</td>
+                <td th:text="${loan.landId}">description</td>
+                <td th:text="${loan.permitId}">number</td>
+                <td><a th:href="${ '/loan/' + loan.id}">View</a></td>
+                <td><a th:href="${'/loan/edit/' + loan.id}">Settle</a></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

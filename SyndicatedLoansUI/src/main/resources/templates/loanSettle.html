@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Syndicated Loan Settlement</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+    <h2>Syndicated Loan Details</h2>
+        <div>
+            <form class="form-horizontal" th:action="@{/loanSettle}" method="post">
+            <input type="hidden" class="form-control" th:value="${loan.id}" name="loanId"/>
+            
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Loan Id:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${loan.id}">Loan Id:</p></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Property Id:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${loan.propertyId}">Property ID</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Land Id:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${loan.landId}">Land ID</p>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label">Permit ID:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${loan.permitId}">Permit ID</p>
+                    </div>
+                  
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Syndicated Amount:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${loan.approvedAmount}">Syndicated Amount</p>
+                    </div>
+				</div>
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label">Outstanding Settlement Amount:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${loan.outstandingSettlementAmount}">Outstanding Settlement Amount</p>
+                    </div>
+                </div> 
+                
+                <div class="form-group">
+                	<label class="col-sm-2 control-label">Settlement Amount</label>
+                	<div class="col-sm-10">
+                    <input type="text" class="form-control" th:value="${settlementAmount}" name="settlementAmount"/>
+                	</div>
+            	</div>
+  	         <div class="row">
+                <button type="submit" class="btn btn-default">Settle Syndicated Loan</button>
+            </div>
+                 
+                </div> 
+                
+                
+            </form>
+    </div>
+</div>
+
+</body>
+</html>

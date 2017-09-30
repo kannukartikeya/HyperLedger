@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Deal Details</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+  <form class="form-horizontal" th:object="${loan}" th:action="@{/loan}" method="post">
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+<div class="panel-group">
+    <div  class="panel panel-default">
+     <div class="panel-heading">Deal Details</div>
+     <div class="panel-body">
+      
+        
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Deal Id:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{id}"/>
+                </div>
+                
+               <label class="col-sm-2 control-label">Deal Type:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{dealtype}"/>
+                </div>
+                
+               
+                <label class="col-sm-2 control-label">Settlement Date: </label>
+                <div class="col-sm-2">
+                    <input type="date" class="form-control" th:field="*{lastModifiedDate}"/>
+                </div>
+                
+                
+            </div>
+            
+            <div class="form-group">                
+				
+				
+					<label class="col-sm-2 control-label">Approved Available Amount:</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" th:field="*{approvedAmount}"/>
+					</div>
+					
+					<label class="col-sm-2 control-label">Deal Amount:</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" th:field="*{dealAmount}"/>
+					</div>
+					
+					
+					<label class="col-sm-2 control-label">Loan Outstanding Amount:</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" th:field="*{outstandingSettlementAmount}"/>
+					</div>
+					
+			</div>
+            
+                          
+
+                
+               <div class="form-group">
+               
+ 				<label class="col-sm-2 control-label">Base Rate Type:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{baseRateType}"/>
+                </div>
+ 
+  				<label class="col-sm-2 control-label">Spread:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{spread}"/>
+                </div>
+ 
+  				<label class="col-sm-2 control-label">All In Rate:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{allInRate}"/>
+                </div>
+               
+
+                              
+            	</div>
+            
+  
+       
+         </div>
+    </div>  
+    
+    
+    
+    		 <div  class="panel panel-default">
+			<div class="panel-heading">Collateral Details</div>
+				<div class="panel-body">
+         <div class="form-group">
+                <label class="col-sm-2 control-label">Property ID:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{propertyId}"/>
+                </div>
+                 <label class="col-sm-2 control-label">Land ID:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{landId}"/>
+                </div>
+                <label class="col-sm-2 control-label">Permit ID:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{permitId}"/>
+                </div>
+            </div>
+				
+				</div>    
+		</div>    
+
+		
+	
+	
+	
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     <div  class="panel panel-default">
+     	<div class="panel-heading">Financial Details</div>
+			<div class="panel-body">
+		       <div class="form-group">
+                <label class="col-sm-2 control-label">SP Ratings:</label>
+                	<div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{financialInfo.spRating}"/>
+                	</div>	
+                	
+                	<label class="col-sm-2 control-label">Mood's Rating:</label>
+                	<div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{financialInfo.moodyRating}"/>
+                	</div>	
+                	
+                	                <label class="col-sm-2 control-label">Debt Coverage Ratio:</label>
+                	<div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{financialInfo.dcr}"/>
+                	</div>	
+                	
+                	<label class="col-sm-2 control-label">Turnover(Cr):</label>
+                	<div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{financialInfo.turnover}"/>
+                	</div>	
+                	
+                	
+				</div>
+   			</div>    
+    </div>    
+
+
+
+     <div  class="panel panel-default">
+     	<div class="panel-heading">Borrower Details</div>
+			<div class="panel-body">
+		       <div class="form-group">
+                <label class="col-sm-2 control-label">First Name:</label>
+                	<div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{personalInfo.firstname}"/>
+                	</div>	
+                	
+                	<label class="col-sm-2 control-label">Last Name:</label>
+                	<div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{personalInfo.lastname}"/>
+                	</div>	
+                	
+                	                <label class="col-sm-2 control-label">Registered Address:</label>
+                	<div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{personalInfo.address}"/>
+                	</div>	
+                	
+                	<label class="col-sm-2 control-label">Email:</label>
+                	<div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{personalInfo.email}"/>
+                	</div>	
+                	
+                	                	<label class="col-sm-2 control-label">Contact:</label>
+                	<div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{personalInfo.contact}"/>
+                	</div>	
+                	
+                	
+				</div>
+   			</div>    
+    </div>    
+      
+      
+    </div>
+              <div class="row" style="text-align:center">
+                <button type="submit" class="btn btn-default" >Create Deal</button>
+            </div>
+    
+    
+    
+      
+</div>
+   </form>
+</body>
+</html>
