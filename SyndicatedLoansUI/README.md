@@ -1,2 +1,12 @@
-# Spring Boot Web Application
-This repository has the project files for a tutorial series on Spring Boot available from by website at [Spring Framework Guru](https://springframework.guru)
+# Spring Boot Web Application - Syndication/Participation
+This repository has UI code in thymleaf to connect to local instance of blockchain
+running on docker container
+
+
+start docker which has exited :
+docker start $(docker ps -a -q --filter "status=exited")
+
+login to peer node :
+docker exec -it dockercompose_vp_1 bash
+
+

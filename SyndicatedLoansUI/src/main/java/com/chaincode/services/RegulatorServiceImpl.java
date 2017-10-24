@@ -36,9 +36,9 @@ public class RegulatorServiceImpl implements RegulatorService {
 
     
     public RegulatorServiceImpl (){
-    	this.chainCode = "744dce7c908d11fa5b71452d6e44391ffb6dfe62d0bad2fe55d24c9712ea3b1e4a1287921d41be11d6381ad1691c2416b939391899c37bf33633ddf1d98a9f0e";
-    	this.url = "https://dbfd3b8eefaa4748ba1b03a2372b4283-vp0.us.blockchain.ibm.com:5004/chain";
-    	this.blockurl = "https://dbfd3b8eefaa4748ba1b03a2372b4283-vp0.us.blockchain.ibm.com:5004/chain/blocks";
+    	this.chainCode = "35b999f07b55ac2f9051c2ebb1838dbe436932df5871db5fbffca226bf9ad2f99a2ce45d012baca1c900730929500ea0c94ac8ca148b425575b6d793336330b9";
+    	this.url = "http://localhost:7050/chain";
+    	this.blockurl = "http://localhost:7050/chain/blocks";
     }
 
   
