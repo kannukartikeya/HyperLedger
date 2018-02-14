@@ -1,0 +1,152 @@
+-https://github.com/IBM-Blockchain-Archive/fabric-images
+
+View all containers (active and non-active):
+
+docker ps -a
+
+    Stop all Docker containers:
+
+docker stop $(docker ps -a -q)
+
+    Remove all containers. Adding the -f will issue a "force" removal:
+
+docker rm -f $(docker ps -aq)
+
+    Remove all images:
+
+docker rmi -f $(docker images -q)
+
+SETTING ENV
+export ARCH_TAG="x86_64-0.6.1-preview
+
+STARTING  SINGLE PEER NETWORK
+~/hyperledger0.6/fabric-images/docker-compose$ docker-compose -f single-peer-ca.yaml up 
+
+(detached mode : docker-compose -f single-peer-ca.yaml up -d)
+
+
+CHECKING RUNNING  IMAGES
+kartikeya@kartikeya-Vostro-15-3568:~/hyperledger0.6/fabric-images/docker-compose$ docker ps
+CONTAINER ID        IMAGE                                                  COMMAND                  CREATED             STATUS              PORTS                                                      NAMES
+69fe1a03b365        ibmblockchain/fabric-peer:x86_64-0.6.1-preview         "sh -c 'sleep 10; ..."   10 minutes ago      Up 39 seconds       0.0.0.0:7050-7051->7050-7051/tcp, 0.0.0.0:7053->7053/tcp   dockercompose_vp_1
+329c1c3baf18        ibmblockchain/fabric-membersrvc:x86_64-0.6.1-preview   "membersrvc"             10 minutes ago      Up 41 seconds       0.0.0.0:7054->7054/tcp                                     dockercompose_membersrvc_1
+
+STOPPING SINGLE PEER IMAGES
+kartikeya@kartikeya-Vostro-15-3568:~/hyperledger0.6/fabric-images/docker-compose$ docker-compose -f single-peer-ca.yaml stop
+WARNING: The ARCH_TAG variable is not set. Defaulting to a blank string.
+Stopping dockercompose_vp_1 ... done
+Stopping dockercompose_membersrvc_1 ... done
+
+kartikeya@kartikeya-Vostro-15-3568:~/hyperledger0.6/fabric-images/docker-compose$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+
+
+
+STARTING FOUR NODE PEER NETWORK (lukas: 1 NPKYL39uKbkj bank_a)
+kartikeya@kartikeya-Vostro-15-3568:~/hyperledger0.6/fabric-images/docker-compose$ docker-compose -f four-peer-ca.yaml up
+
+
+CHECKING FOUR NODE PEER NETWORK
+kartikeya@kartikeya-Vostro-15-3568:~/hyperledger0.6/fabric-images/docker-compose$ docker ps
+CONTAINER ID        IMAGE                                                  COMMAND                  CREATED             STATUS              PORTS                                                                       NAMES
+07d3b93a20c8        ibmblockchain/fabric-peer:x86_64-0.6.1-preview         "sh -c 'sleep 10; ..."   42 seconds ago      Up 39 seconds       0.0.0.0:10050->7050/tcp, 0.0.0.0:10051->7051/tcp, 0.0.0.0:10053->7053/tcp   dockercompose_vp3_1
+f084ec882e86        ibmblockchain/fabric-peer:x86_64-0.6.1-preview         "sh -c 'sleep 10; ..."   42 seconds ago      Up 39 seconds       0.0.0.0:8050->7050/tcp, 0.0.0.0:8051->7051/tcp, 0.0.0.0:8053->7053/tcp      dockercompose_vp1_1
+daa0208ea6e8        ibmblockchain/fabric-peer:x86_64-0.6.1-preview         "sh -c 'sleep 10; ..."   42 seconds ago      Up 40 seconds       0.0.0.0:9050->7050/tcp, 0.0.0.0:9051->7051/tcp, 0.0.0.0:9053->7053/tcp      dockercompose_vp2_1
+0f6ac67b0d1b        ibmblockchain/fabric-peer:x86_64-0.6.1-preview         "sh -c 'sleep 10; ..."   44 seconds ago      Up 42 seconds       0.0.0.0:7050-7051->7050-7051/tcp, 0.0.0.0:7053->7053/tcp                    dockercompose_vp0_1
+329c1c3baf18        ibmblockchain/fabric-membersrvc:x86_64-0.6.1-preview   "membersrvc"             17 minutes ago      Up 43 seconds       0.0.0.0:7054->7054/tcp                                                      dockercompose_membersrvc_1
+
+STOPPING FOUR NODE PEER NETWORK
+kartikeya@kartikeya-Vostro-15-3568:~/hyperledger0.6/fabric-images/docker-compose$ docker-compose -f four-peer-ca.yaml stop
+WARNING: The ARCH_TAG variable is not set. Defaulting to a blank string.
+Stopping dockercompose_vp3_1 ... done
+Stopping dockercompose_vp1_1 ... done
+Stopping dockercompose_vp2_1 ... done
+Stopping dockercompose_vp0_1 ... done
+Stopping dockercompose_membersrvc_1 ... done
+
+
+LOGGING IN PEER NODE
+kartikeya@kartikeya-Vostro-15-3568:~/hyperledger0.6/fabric-images/docker-compose$ docker exec -it dockercompose_vp_1 bash
+
+
+LOGGING WITH USER test_user0 
+root@69fe1a03b365:/opt/gopath/src/github.com/hyperledger/fabric# 
+
+peer network login test_user0 -p MS9qrN8hFjlE
+
+
+16:01:43.321 [logging] LoggingInit -> DEBU 001 Setting default logging level to DEBUG for command 'network'
+16:01:43.321 [networkCmd] networkLogin -> INFO 002 CLI client login...
+16:01:43.321 [networkCmd] networkLogin -> INFO 003 Local data store for client loginToken: /var/hyperledger/production/client/
+16:01:43.321 [networkCmd] networkLogin -> INFO 004 Logging in user 'test_user0' on CLI interface...
+16:01:44.035 [networkCmd] networkLogin -> INFO 005 Storing login token for user 'test_user0'.
+16:01:44.036 [networkCmd] networkLogin -> INFO 006 Login successful for user 'test_user0'.
+16:01:44.036 [main] main -> INFO 007 Exiting.....
+
+
+DEPLOY SAMPLE CHAINCODE
+
+root@69fe1a03b365:/opt/gopath/src/github.com/hyperledger/fabric# peer chaincode deploy -u test_user0 -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 -c '{"Args": ["init","a", "100", "b", "200"]}'
+16:02:45.762 [logging] LoggingInit -> DEBU 001 Setting default logging level to DEBUG for command 'chaincode'
+16:02:45.763 [chaincodeCmd] getChaincodeSpecification -> INFO 002 Local user 'test_user0' is already logged in. Retrieving login token.
+16:02:50.244 [chaincodeCmd] chaincodeDeploy -> INFO 003 Deploy result: type:GOLANG chaincodeID:<path:"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02" name:"ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539" > ctorMsg:<args:"init" args:"a" args:"100" args:"b" args:"200" > 
+Deploy chaincode: ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539
+16:02:50.244 [main] main -> INFO 004 Exiting.....
+
+
+INVOKE CHAINCODE 
+
+root@69fe1a03b365:/opt/gopath/src/github.com/hyperledger/fabric# peer chaincode invoke -u test_user0 -n ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539 -c '{"Args": ["invoke", "a", "b", "10"]}'
+
+16:04:13.937 [logging] LoggingInit -> DEBU 001 Setting default logging level to DEBUG for command 'chaincode'
+16:04:13.937 [chaincodeCmd] getChaincodeSpecification -> INFO 002 Local user 'test_user0' is already logged in. Retrieving login token.
+16:04:14.257 [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 003 Successfully invoked transaction: chaincodeSpec:<type:GOLANG chaincodeID:<name:"ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539" > ctorMsg:<args:"invoke" args:"a" args:"b" args:"10" > secureContext:"test_user0" > (3110ae5c-582b-4069-9ef9-fd223d40b4ca)
+16:04:14.257 [main] main -> INFO 004 Exiting.....
+
+QUERY CHAINCODE
+root@69fe1a03b365:/opt/gopath/src/github.com/hyperledger/fabric# peer chaincode query -u test_user0 -n ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539 -c '{"Args": ["query", "a"]}'
+16:05:03.185 [logging] LoggingInit -> DEBU 001 Setting default logging level to DEBUG for command 'chaincode'
+16:05:03.185 [chaincodeCmd] getChaincodeSpecification -> INFO 002 Local user 'test_user0' is already logged in. Retrieving login token.
+16:05:04.397 [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 003 Successfully queried transaction: chaincodeSpec:<type:GOLANG chaincodeID:<name:"ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539" > ctorMsg:<args:"query" args:"a" > secureContext:"test_user0" > 
+Query Result: 90
+16:05:04.398 [main] main -> INFO 004 Exiting.....
+
+
+DEPLOY SYNDICATED LOAN 
+2 node : peer chaincode deploy -u test_user0 -p https://github.com/kannukartikeya/LoanSyndication-ChainCode -c '{"Args": ["init","part1"]}'
+
+4 node : peer chaincode deploy -u lukas -p https://github.com/kannukartikeya/LoanSyndication-ChainCode -c '{"Args": ["init","part1"]}'
+
+Change chaincode and test user
+
+docker run -p 9090:9090 -e HYP_REST_ENDPOINT=http://localhost:7050 yeasy/blockchain-explorer
+
+
+https://hyperledger.github.io/composer/installing/development-tools.html
+https://chat.hyperledger.org/channel/general
+
+remove all exited docker images - one liner
+sudo docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm
+
+
+docker rm $(docker ps -q -f status=exited)
+
+
+start docker which has exited :
+docker start $(docker ps -a -q --filter "status=exited")
+
+
+
+login to peer node
+docker exec -it dockercompose_vp_1 bash
+
+
+
+uploading to docker hub:
+
+docker tag hyperledger/fabric-baseimage kartikeya80/fabric-baseimage:latest
+
+docker push kartikeya80/fabric-baseimage:latest
+
+docker run -p 9090:9090 -e HYP_REST_ENDPOINT=http://0.0.0.0:7050 yeasy/blockchain-explorerme
+
