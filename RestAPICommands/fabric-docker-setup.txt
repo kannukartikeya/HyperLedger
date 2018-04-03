@@ -55,6 +55,12 @@ daa0208ea6e8        ibmblockchain/fabric-peer:x86_64-0.6.1-preview         "sh -
 0f6ac67b0d1b        ibmblockchain/fabric-peer:x86_64-0.6.1-preview         "sh -c 'sleep 10; ..."   44 seconds ago      Up 42 seconds       0.0.0.0:7050-7051->7050-7051/tcp, 0.0.0.0:7053->7053/tcp                    dockercompose_vp0_1
 329c1c3baf18        ibmblockchain/fabric-membersrvc:x86_64-0.6.1-preview   "membersrvc"             17 minutes ago      Up 43 seconds       0.0.0.0:7054->7054/tcp                                                      dockercompose_membersrvc_1
 
+
+docker-compose down/start - tops and removes all containers listed in docker-compose file along with their volumes
+docker-compose stop/up - data will be preserveddata will be preserved
+
+
+
 STOPPING FOUR NODE PEER NETWORK
 kartikeya@kartikeya-Vostro-15-3568:~/hyperledger0.6/fabric-images/docker-compose$ docker-compose -f four-peer-ca.yaml stop
 WARNING: The ARCH_TAG variable is not set. Defaulting to a blank string.
@@ -72,7 +78,12 @@ kartikeya@kartikeya-Vostro-15-3568:~/hyperledger0.6/fabric-images/docker-compose
 LOGGING WITH USER test_user0 
 root@69fe1a03b365:/opt/gopath/src/github.com/hyperledger/fabric# 
 
+POSTMAN
+POST : http://localhost:7050/registrar
+args : {"enrollId":"test_user0","enrollSecret":"MS9qrN8hFjlE"}
+
 peer network login test_user0 -p MS9qrN8hFjlE
+peer network login lukas -p NPKYL39uKbkj
 
 
 16:01:43.321 [logging] LoggingInit -> DEBU 001 Setting default logging level to DEBUG for command 'network'
@@ -87,6 +98,10 @@ peer network login test_user0 -p MS9qrN8hFjlE
 DEPLOY SAMPLE CHAINCODE
 
 root@69fe1a03b365:/opt/gopath/src/github.com/hyperledger/fabric# peer chaincode deploy -u test_user0 -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 -c '{"Args": ["init","a", "100", "b", "200"]}'
+
+
+peer chaincode deploy -u lukas -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 -c '{"Args": ["init","a", "100", "b", "200"]}'
+
 16:02:45.762 [logging] LoggingInit -> DEBU 001 Setting default logging level to DEBUG for command 'chaincode'
 16:02:45.763 [chaincodeCmd] getChaincodeSpecification -> INFO 002 Local user 'test_user0' is already logged in. Retrieving login token.
 16:02:50.244 [chaincodeCmd] chaincodeDeploy -> INFO 003 Deploy result: type:GOLANG chaincodeID:<path:"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02" name:"ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539" > ctorMsg:<args:"init" args:"a" args:"100" args:"b" args:"200" > 
@@ -96,7 +111,7 @@ Deploy chaincode: ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0d
 
 INVOKE CHAINCODE 
 
-root@69fe1a03b365:/opt/gopath/src/github.com/hyperledger/fabric# peer chaincode invoke -u test_user0 -n ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539 -c '{"Args": ["invoke", "a", "b", "10"]}'
+root@69fe1a03b365:/opt/gopath/src/github.com/hyperledger/fabric# peer chaincode invoke -u lukas -n ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539 -c '{"Args": ["invoke", "a", "b", "10"]}'
 
 16:04:13.937 [logging] LoggingInit -> DEBU 001 Setting default logging level to DEBUG for command 'chaincode'
 16:04:13.937 [chaincodeCmd] getChaincodeSpecification -> INFO 002 Local user 'test_user0' is already logged in. Retrieving login token.
@@ -104,7 +119,7 @@ root@69fe1a03b365:/opt/gopath/src/github.com/hyperledger/fabric# peer chaincode 
 16:04:14.257 [main] main -> INFO 004 Exiting.....
 
 QUERY CHAINCODE
-root@69fe1a03b365:/opt/gopath/src/github.com/hyperledger/fabric# peer chaincode query -u test_user0 -n ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539 -c '{"Args": ["query", "a"]}'
+root@69fe1a03b365:/opt/gopath/src/github.com/hyperledger/fabric# peer chaincode query -u lukas -n ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539 -c '{"Args": ["query", "a"]}'
 16:05:03.185 [logging] LoggingInit -> DEBU 001 Setting default logging level to DEBUG for command 'chaincode'
 16:05:03.185 [chaincodeCmd] getChaincodeSpecification -> INFO 002 Local user 'test_user0' is already logged in. Retrieving login token.
 16:05:04.397 [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 003 Successfully queried transaction: chaincodeSpec:<type:GOLANG chaincodeID:<name:"ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539" > ctorMsg:<args:"query" args:"a" > secureContext:"test_user0" > 
